@@ -1,4 +1,5 @@
-const http = require("http");
+const express = require("express");
+const app = express();
 
 let notes = [
   {
@@ -23,9 +24,17 @@ let notes = [
   },
 ];
 
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { "Content-Type": "application/json" });
-  response.end(JSON.stringify(notes));
+app.get("/", (request, response) => {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleString("fi-FI", {
+    timeZone: "Europe/Helsinki",
+    dateStyle: "full",
+    timeStyle: "long",
+  });
+  response.send(`
+    <p>Phonebook has info for ${notes.length} people</p>
+    <p>${formattedDate}</p>
+  `);
 });
 
 const PORT = 3001;
