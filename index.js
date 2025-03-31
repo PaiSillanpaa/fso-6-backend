@@ -63,6 +63,14 @@ app.post("/api/notes", (request, response) => {
     });
   }
 
+  // tarkistetaan, onko nimi jo olemassa
+  const nameExists = notes.some((note) => note.name === body.name);
+  if (nameExists) {
+    return response.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
   const note = {
     id: Math.floor(Math.random() * 10000).toString(), //Satunnainen ID
     name: body.name,
