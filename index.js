@@ -1,7 +1,20 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 
 app.use(express.json());
+
+// Morgan loggaus, joka näyttää myös POST-pyyntöjen rungon
+morgan.token("body", (req) => {
+  return req.method === "POST" ? JSON.stringify(req.body) : "";
+});
+// Loggaa POST-pyyntöjen rungon
+app.use(
+  morgan(":method :url :status :res[content-leghth] - :response-time ms :body")
+);
+
+// Morgan loggaus
+app.use(morgan("tiny"));
 
 let notes = [
   {
