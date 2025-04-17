@@ -5,6 +5,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static("dist"));
 
 // Morgan loggaus, joka näyttää myös POST-pyyntöjen rungon
 morgan.token("body", (req) => {
