@@ -2,9 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 
-// app.use(express.json());
-app.use(express.static("dist"));
+//app.use(express.json());
+app.use("/test-pages", express.static(path.join(__dirname, "dist")));
+//app.use(express.static("dist"));
 
 // Morgan loggaus, joka näyttää myös POST-pyyntöjen rungon
 morgan.token("body", (req) => {
